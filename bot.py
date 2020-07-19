@@ -251,4 +251,4 @@ class DiscordBot(Thread):
             pass
 
         client.run(
-            'NzI5ODM2OTUwOTI3ODM1MjI2.XwOwQQ.8arVEXka0RX6R9psn-uoXJlSLJk')
+            'your-token')
