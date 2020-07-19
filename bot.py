@@ -2,7 +2,9 @@ from escpos.printer import Serial
 from twitchio.ext import commands
 from tinydb import TinyDB, Query
 from random import randint
-from Threading import Thread
+from threading import Thread
+import discord
+from discord.ext import commands as discord_commands
 import asyncio
 import time
 import json
@@ -11,6 +13,9 @@ db = TinyDB('twitch_users.json')
 users = db.table('users')
 admins = db.table('admins')
 oauthkey = db.table('oauthkey')
+
+discord_db = TinyDB('discord_events.json')
+color_events = TinyDB('color_events')
 
 
 class TwitchBot(Thread):
@@ -224,4 +229,26 @@ class DiscordBot(Thread):
         Thread.__init__(self)
 
     def run(self):
-        pass
+        client = discord_commands.Bot(command_prefix='?')
+
+        channel = client.get_channel('channel_id')
+
+        async def status_task():
+            while True:
+                all_events = color_events.all()
+                for event in all_events:
+                    channel.send(
+                        event['name'] + ' a changé la couleur de sa LED vers ' + event['color'])
+                    Event = Query()
+                    color_events.remove(Event.id == event['id'])
+
+        @client.event
+        async def on_ready():
+            client.loop.create_task(status_task())
+
+        @client.event
+        async def on_message():
+            pass
+
+        client.run(
+            'NzI5ODM2OTUwOTI3ODM1MjI2.XwOwQQ.8arVEXka0RX6R9psn-uoXJlSLJk')
