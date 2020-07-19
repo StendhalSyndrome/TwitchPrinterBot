@@ -153,7 +153,6 @@ class Bot(commands.Bot):
 
         if(user["prints_left"] != 0):
             if(len(message) < 100):
-                prints_left = user["prints_left"] - 1
                 print(
                     f"Printing | {len(message)} char message from {ctx.author.name}")
                 if(message == ""):
