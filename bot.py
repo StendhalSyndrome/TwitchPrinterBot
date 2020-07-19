@@ -237,10 +237,10 @@ class DiscordBot(Thread):
             while True:
                 all_events = color_events.all()
                 for event in all_events:
-                    channel.send(
-                        event['name'] + ' a changé la couleur de sa LED vers ' + event['color'])
-                    Event = Query()
-                    color_events.remove(Event.id == event['id'])
+                channel.send(
+                    event['name'] + ' a changé la couleur de sa LED vers ' + event['color'])
+                Event = Query()
+                color_events.remove(Event.id == event['id'])
 
         @client.event
         async def on_ready():
