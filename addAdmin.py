@@ -6,5 +6,4 @@ admins = db.table('admins')
 
 uid = sys.argv[1]
 
-admins.insert({"id":int(uid)})
-
+admins.insert({"id": int(uid)})

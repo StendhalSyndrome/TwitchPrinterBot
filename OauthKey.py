@@ -6,5 +6,4 @@ oauthkey = db.table('oauthkey')
 
 key = sys.argv[1]
 
-oauthkey.insert({"key":key})
-
+oauthkey.insert({"key": key})
